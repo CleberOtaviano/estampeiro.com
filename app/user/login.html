@@ -1,0 +1,93 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<div class="ui main text container">
+    <div class="ui small basic test modal transition">
+        <div class="ui icon header">
+            <i class="archive icon"></i>
+            Archive Old Messages
+        </div>
+        <div class="content">
+            <div class="center">
+                <p>Your inbox is getting full, would you like us to enable automatic archiving of old messages?</p>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui red basic cancel inverted button">
+                <i class="remove icon"></i>
+                No
+            </div>
+            <div class="ui green ok inverted button">
+                <i class="checkmark icon"></i>
+                Yes
+            </div>
+        </div>
+    </div>
+</div>
+<div class="ui basic vertical very padded aligned segment">
+    <div class="ui main container">
+        <div class="ui three column centered grid">
+            <div class="column">
+                <h2><strong>Login</strong></h2>
+
+                {% if message.length > 0 %}
+                    <div class="ui negative message">
+                        <i class="close icon"></i>
+                        <div class="header">
+                            Opss!
+                        </div>
+
+                        <p>
+                            {{message}}
+                        </p>
+                    </div>
+                {% endif %}
+
+                <form action="/login" method="post" class="ui form">
+
+                    <input type="hidden" name="returnUrl" id="returnUrl">
+
+                    <div class="field">
+                        <label>E-mail</label>
+                        <input name="email" id="email" type="email" placeholder="Your email" required />
+                    </div>
+
+                    <div class="field">
+                        <label>Senha</label>
+                        <input name="password" id="password" type="password" placeholder="Your password" required />
+                    </div>
+
+                    <div class="field">
+                        <div class="ui toggle checkbox">
+                            <input type="checkbox" name="logado" id="logado">
+                            <label for="logado">Mantenha-me logado</label>
+                        </div>
+                    </div>
+
+                    <button class="fluid ui button" type="submit">Logar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" charset="utf-8">
+
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+
+        (function() {
+            $("#returnUrl").val(getParameterByName('returnUrl'));
+        })()
+    </script>
+{% endblock %}

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>Estampeiro</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" type="text/css" href="/semantic/out/semantic.min.css">
+    <style type="text/css" media="screen">
+        .ui.secondary.pointing.menu .item.logo {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        .hero {
+            min-height: calc(100vh - 90px);
+        }
+
+        .hero .conteudo {
+            padding-top: 9em;
+        }
+
+        .bg-azul {
+            background:
+                -webkit-linear-gradient(-45deg, rgba(24,42,115,1) 0%,rgba(33,138,174,1) 69%,rgba(32,167,172,1) 89%)!important;
+        }
+        .hero-side .container {
+            background-image: url('/assets/images/imac.png');
+            background-size: 45%;
+            background-repeat: no-repeat;
+            background-position: left top;
+        }
+        .explicacao {
+            /*padding: 8em 1em;*/
+            min-height: 600px;
+            padding-top: 110px;
+        }
+        .lead  {
+            margin: 40px 0;
+        }
+
+    </style>
+    <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+
+    {% if notLayoutMenu != true %}
+        {% include "menu.html" %}
+    {% endif %}
+
+    {% block body %}
+        This is the default content
+    {% endblock %}
+
+    <footer class="ui vertical very padded inverted segment">
+        <div class="ui container">
+            <div class="ui middle aligned four column centered grid">
+                <div class="row">
+                    <div class="column">
+                        <h4>
+                               <img class="" src="/assets/images/logo.png">
+                        </h4>
+                        <div class="description">
+                            <p>A maneira mais rápida de criar, compartilhar e enviar camisetas.</p>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <h4 class="ui inverted header">Informações</h4>
+                        <div class="ui inverted link list">
+                            <a href="#" class="item">A empresa</a>
+                            <a href="#" class="item">Termos de Uso</a>
+                            <a href="#" class="item">Privacidade</a>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <h4 class="ui inverted header">Formas de Pagamento</h4>
+                        <i class="barcode big icon"></i>
+                        <i class="visa big icon"></i>
+                        <i class="mastercard big icon"></i>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+
+    <script type="text/javascript" src="/semantic/out/semantic.min.js"></script>
+    <script type="text/javascript">
+
+        $(function() {
+            var pageUrl = window.location.href;
+            var menus = "#mainNav ul li a, #contextNav ul li a";
+
+            $(".menu .item").each(function(){
+                var urlActive = $(this).data("active");
+                if(pageUrl.indexOf(urlActive) >= 0) {
+                    $(this).addClass("active");
+                }
+            });
+
+
+            $('.ui.dropdown').dropdown({
+                transition: 'drop'
+            });
+        });
+
+    </script>
+    {% block javascript %}
+    {% endblock %}
+</body>
+</html>

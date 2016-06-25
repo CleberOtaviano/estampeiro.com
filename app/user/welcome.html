@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <div class="ui main text container">
+        <h1 class="ui header">Home</h1>
+
+        <h2 class="ui header">Sistema de gerenciamento de e-commerce</h2>
+        <a href="/signup" class="ui button">Cadastrar</a>
+
+
+        <div class="ui raised very padded text container segment">
+            <h2 class="ui header">Dogs Roles with Humans</h2>
+            <p>
+                texto aqui!
+            </p>
+
+            <p>
+                outro texto aqui!
+            </p>
+
+            <div class="ui bottom attached green label">DENTRO DO PRAZO</div>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script src="/semantic/out/components/popup.js" type="text/javascript" charset="utf-8" async defer></script>
+
+    <script type="text/javascript" charset="utf-8" async defer>
+        $('[data-popup]')
+          .popup()
+        ;
+    </script>
+{% endblock %}

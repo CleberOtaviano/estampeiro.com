@@ -1,0 +1,37 @@
+/*******************************
+         Site Overrides
+*******************************/
+h1 {
+	b, strong {
+		font-size: calc(@h1 * 1.5);
+		font-weight: 900;
+	}
+}
+
+h2 {
+	b, strong {
+		font-size: calc(@h2 * 1.5);
+		font-weight: 900;
+	}
+}
+
+h3 {
+	b, strong {
+		font-size: calc(@h3 * 1.5);
+		font-weight: 900;
+	}
+}
+
+h4 {
+	b, strong {
+		font-size: calc(@h4 * 1.5);
+		font-weight: 900;
+	}
+}
+
+h5 {
+	b, strong {
+		font-size: calc(@h5 * 1.5);
+		font-weight: 900;
+	}
+}

@@ -1,0 +1,92 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <div class="ui masthead vertical segment">
+        <div class="ui container">
+            <h2 class="ui header">Work flow</h2>
+            <h3 class="">Listagem de pedidos de demandas</h3>
+
+            <div class="ui centered grid">
+                <div class="eleven wide column">
+                    <div class="ui divided items padded segment">
+                        <div class="item">
+                            <div class="content">
+                                <a href="#" class="header">TS-2001W</a>
+                                <div class="meta">
+                                    <span class="tshirt">Builder</span>
+                                </div>
+                                <div class="description">
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur dipisicing.
+                                    </p>
+                                </div>
+                                <div class="extra">
+                                    <div class="ui right floated primary button" id="botaoFinalizar">
+                                        Finalizar
+                                        <i class="right paint brush icon"></i>
+                                    </div>
+                                    <div class="ui label">builder</div>
+                                    <div class="ui label">tshirt</div>
+                                </div>
+
+                                <div class="manow" style="display: none;">
+                                    <form accept-charset="utf-8" class="ui form">
+                                        <br />
+                                        <h4 class="ui horizontal divider header">Procedimento de finalização</h4>
+                                        <div class="ui three steps">
+                                            <div class="active step">
+                                                <i class="paint brush icon"></i>
+                                                <div class="content">
+                                                    <div class="title">Build</div>
+                                                    <div class="description">Estampar a camiseta</div>
+                                                </div>
+                                            </div>
+                                            <div class="step">
+                                                <i class="archive icon"></i>
+                                                <div class="content">
+                                                    <div class="title">Embalagem</div>
+                                                    <div class="description">Empacotar e organizar</div>
+                                                </div>
+                                            </div>
+                                            <div class="step">
+                                                <i class="truck icon"></i>
+                                                <div class="content">
+                                                    <div class="title">Entrega</div>
+                                                    <div class="description">Postar no Correios</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="ui center aligned basic segment">
+                                            <p>Pintando a camiseta...</p>
+
+                                        </div>
+
+                                        <button class="ui right floated icon button" tabindex="0">
+                                            Proximo
+                                            <i class="chevron right     icon"></i>
+                                        </button>
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" charset="utf-8">
+
+        $("#botaoFinalizar").on("click", function(e) {
+            if (!$(".manow").is(":visible")) {
+                $(".manow").transition('fade down');
+            }
+        });
+
+    </script>
+{% endblock %}
