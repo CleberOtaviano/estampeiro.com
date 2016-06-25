@@ -6,5 +6,5 @@ app.listen(port, function (err) {
     throw err
   }
 
-  console.log(`SERVINDO NA PORTA: ` + port);
+  console.log('SERVINDO NA PORTA: ' + port);
 });

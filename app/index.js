@@ -6,7 +6,6 @@ const bodyParser = require('body-parser')
 const passport = require('passport')
 const flash = require('connect-flash')
 const cookieParser  = require('cookie-parser')
-const redis  = require('redis')
 const nunjucks  = require('nunjucks')
 
 const mongoose = require('mongoose');
