@@ -1,11 +1,11 @@
 const passport = require('passport')
 
 function initHome(app) {
-  app.get('/', function(req, res) {
+  app.get('/builder', function(req, res) {
 
     let isLogado = req.user ? true : false;
 
-    res.render('home/index', {
+    res.render('builder/index', {
         isLogado,
         notLayoutMenu: true,
         invertedMenu: true

@@ -48,9 +48,11 @@ app.engine('html', nunjucks.render);
 app.set('view engine', 'html');
 app.use('/assets', express.static(path.join(__dirname, 'assets')))
 app.use('/semantic', express.static(path.join(__dirname, '../semantic')))
+app.use('/public', express.static(path.join(__dirname, '../public')))
 
 require('./user').init(app)
 require('./workflow').init(app)
 require('./home').init(app)
+require('./builder').init(app)
 
 module.exports = app

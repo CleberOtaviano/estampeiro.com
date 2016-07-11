@@ -3,13 +3,18 @@
   "version": "1.0.0",
   "description": "Loja com criação em 3D",
   "engines": {
-    "node": "6.2.0"
+    "node": "6.2.2"
   },
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "build-css": "node-sass --include-path scss app/assets/scss/main.scss app/assets/css/main.css",
-    "watch-css": "nodemon -e scss -x \"npm run build-css\""
+    "start-dev": "npm run build:watch",
+    "build:watch": "npm run build:clean | npm run watch-js | npm run watch-css",
+    "build-css": "node-sass --include-path scss app/assets/scss/main.scss   public/css/main.css",
+    "watch-css": "nodemon -e scss -x \"npm run build-css\"",
+    "build-js": "browserify app/assets/js/app.js | uglifyjs -mc > public/js/bundle.js",
+    "build:clean": "rimraf public/css/*, public/js/*",
+    "watch-js": "watchify app/assets/js/app.js -o public/js/bundle.js -v"
   },
   "keywords": [],
   "author": "",
@@ -30,8 +35,13 @@
     "passport-local": "1.0.0"
   },
   "devDependencies": {
-    "semantic-ui": "^2.1.8",
     "node-sass": "^3.8.0",
-    "nodemon": "^1.9.2"
+    "nodemon": "^1.9.2",
+    "orbit-controls": "^1.1.1",
+    "semantic-ui": "^2.1.8",
+    "three": "^0.78.0",
+    "three-obj-loader": "^1.0.2",
+    "three-orbit-controls": "^72.0.0",
+    "watchify": "^3.7.0"
   }
 }

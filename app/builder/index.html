@@ -4,22 +4,7 @@
     <div class="ui inverted vertical black masthead bg-azul center aligned segment">
         {% include "menu.html" %}
 
-        <div class="hero">
-            <div class="ui text container conteudo">
-                <h1><strong>Crie camisetas usando 3D</strong></h1>
-                <p class="ui centered lead">
-                    A nossa ferramenta é totalmente online feita
-                     para criar <br />ótimas camisetas estampaveis, com apenas um click.
-                </p>
-                <a href="builder" class="ui huge animated fade ui inverted button c">
-                    <div class="visible content">
-                        Comece agora
-                    </div>
-                    <div class="hidden content">
-                        sem custo!
-                    </div>
-                </a>
-            </div>
+        <div class="hero" id="builderContainer">
 
         </div>
     </div>
@@ -105,6 +90,8 @@
 
 {% block javascript %}
     <script src="/semantic/out/components/popup.js" type="text/javascript" charset="utf-8" async defer></script>
+
+    <script src="/public/js/bundle.js" type="text/javascript" charset="utf-8" async defer></script>
 
     <script type="text/javascript" charset="utf-8" async defer>
         $('[data-popup]')
