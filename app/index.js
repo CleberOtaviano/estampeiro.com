@@ -9,7 +9,18 @@ const cookieParser  = require('cookie-parser')
 const nunjucks  = require('nunjucks')
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/estampeirodb');
+
+const MONGODB_HOST = process.env.MONGODB_SERVICE_HOST;
+const MONGODB_PORT = process.env.MONGODB_SERVICE_PORT;
+const MONGODB_DATABASE = process.env.MONGODB_DATABASE;
+const MONGODB_USER = process.env.MONGODB_USER;
+const MONGODB_PASSWORD = process.env.MONGODB_PASSWORD;
+
+// Build the connection string
+const dbURI = 'mongodb://AdminEstampeiroUser:EsTampeiroSenhaDB123@'+MONGODB_HOST+':'+MONGODB_PORT+'/estampeirodb';
+
+// Create the database connection
+mongoose.connect(dbURI);
 
 // const config = require('../config')
 const app = express()
