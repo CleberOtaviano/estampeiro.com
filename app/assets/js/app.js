@@ -133,7 +133,7 @@
 
             var textureLoader = new THREE.TextureLoader();
 
-            var texturaDahora = textureLoader.load("public/3d-model/textures/verao.jpg");
+            var texturaDahora = textureLoader.load("public/3d-model/textures/textura-moca.jpg");
 
             // texturaDahora.wrapS = THREE.RepeatWrapping;
             // texturaDahora.wrapT = THREE.RepeatWrapping;
