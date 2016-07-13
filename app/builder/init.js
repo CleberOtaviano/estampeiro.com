@@ -8,7 +8,8 @@ function initHome(app) {
     res.render('builder/index', {
         isLogado,
         notLayoutMenu: true,
-        invertedMenu: true
+        invertedMenu: true,
+        noFooter: true
     })
   })
 }

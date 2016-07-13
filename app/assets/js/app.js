@@ -1,6 +1,7 @@
 
 
         var THREE = require('THREE');
+        var TWEEN = require('TWEEN');
         var container, renderElementByDomElement, renderElement, stats;
         var camera, scene, acpect, raycaster, renderer, controls;
 
@@ -15,7 +16,7 @@
         var particleMaterial;
         var intersected;
 
-        var baseColor = 0x333333;
+        var baseColor = 0xffffff;
         var foundColor = 0x12C0E3;
         var intersectColor = 0x00D66B;
 
@@ -96,9 +97,9 @@
             controls.minPolarAngle = Math.PI / 8 // radians
             controls.maxPolarAngle = Math.PI / 2; // radians
 
-            controls.minAzimuthAngle = - Math.PI / 5; // radians
-            controls.maxAzimuthAngle = Math.PI / 5 ; // radians
-                // controls.maxPolarAngle = 0.3;
+            // controls.minAzimuthAngle = - Math.PI / 5; // radians
+            // controls.maxAzimuthAngle = Math.PI / 5 ; // radians
+            // controls.maxPolarAngle = 0.3;
 
             var manager = new THREE.LoadingManager();
             manager.onProgress = function ( item, loaded, total ) {
@@ -120,23 +121,6 @@
                 console.log(xhr);
             };
 
-            // var helper = new THREE.GridHelper( 200, 10, 0x2a2a37, 0x2a2a37 );
-            //     helper.position.y = -10;
-            //     scene.add( helper );
-
-            // var sphere = new THREE.SphereGeometry();
-            // var object = new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( {color: 0xeeeeee } ) );
-            // var box = new THREE.BoxHelper( object );
-            // scene.add( box );
-
-
-            var pointLight = new THREE.PointLight( 0xffffff, 0.7, 100 );
-            pointLight.position.set( 10, 10, 10 );
-            scene.add( pointLight );
-
-            // var sphereSize = 1;
-            // var pointLightHelper = new THREE.PointLightHelper( pointLight, sphereSize );
-            // scene.add( pointLightHelper );
 
             // model
             var loader = new THREE.OBJLoader( manager ),
@@ -149,7 +133,7 @@
 
             var textureLoader = new THREE.TextureLoader();
 
-            var texturaDahora = textureLoader.load("public/3d-model/textures/textura-moca.jpg");
+            var texturaDahora = textureLoader.load("public/3d-model/textures/verao.jpg");
 
             // texturaDahora.wrapS = THREE.RepeatWrapping;
             // texturaDahora.wrapT = THREE.RepeatWrapping;
@@ -170,7 +154,7 @@
                     map: texturaDahora,
                     side: THREE.DoubleSide,
                     // shadding: THREE.SmoothShading,
-                    color: '#ffffff',
+                    color: '0xffffff',
                     emissive: "#101010",
                     // specular: "#ffffff",
                     shininess: 1,
@@ -186,6 +170,8 @@
                 object.position.y = -10;
                 object.position.z = 6;
                 // object.position.z = 140;
+
+                // baseColor = material.color;
 
                 object.traverse( function ( child ) {
 
@@ -227,20 +213,48 @@
             }
 
 
-            var light = new THREE.PointLight( 0xffffff, 0.4 );
-            light.position.set( -10, 11, 15 );
+            // LUZES
+            var light = new THREE.PointLight( 0xc1c1c1, 0.1 );
+            light.position.set( 0, 0, 50 );
             scene.add( light );
 
-            // var sphereSize2 = 2;
-            // var pointLightHelper2 = new THREE.PointLightHelper( light, sphereSize2 );
-            // scene.add( pointLightHelper2 );
+            var sphereSize2 = 2;
+            var pointLightHelper2 = new THREE.PointLightHelper( light, sphereSize2 );
+            scene.add( pointLightHelper2 );
 
-            var directionalLight = new THREE.DirectionalLight( 0x7F7F7F, 0.4);
-            directionalLight.position.set( 1, 1, -100 );
+            var directionalLight = new THREE.DirectionalLight( 0xc1c1c1, 0.1);
+            directionalLight.position.set( 0, 0, -50 );
             scene.add( directionalLight );
 
-            var ambientLight = new THREE.AmbientLight( 0x595959, 0.1 );
+            var pointLightHelper3 = new THREE.PointLightHelper( directionalLight, 5 );
+            scene.add( pointLightHelper3 );
+
+            var ambientLight = new THREE.AmbientLight( 0xd9d9d9, 0.2 );
             scene.add( ambientLight );
+
+            var pointLightHelper4 = new THREE.PointLightHelper( ambientLight, 2 );
+            scene.add( pointLightHelper4 );
+
+
+            // HELPERS
+
+             var helper = new THREE.GridHelper( 200, 10, 0x2a2a37, 0x2a2a37 );
+                helper.position.y = -10;
+                scene.add( helper );
+
+            var sphere = new THREE.SphereGeometry();
+            var object = new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( {color: 0xeeeeee } ) );
+            var box = new THREE.BoxHelper( object );
+            scene.add( box );
+
+
+            var pointLight = new THREE.PointLight( 0xffffff, 0.7, 100 );
+            pointLight.position.set( 10, 10, 10 );
+            scene.add( pointLight );
+
+            var sphereSize = 1;
+            var pointLightHelper = new THREE.PointLightHelper( pointLight, sphereSize );
+            scene.add( pointLightHelper );
 
             window.addEventListener('resize', onWindowResize, false);
             document.addEventListener('keydown', onKeyDown, false);
@@ -259,6 +273,37 @@
 
                 console.log(camera)
 
+                var posX = camera.position.x + 10;
+                var posY = camera.position.y;
+                var posZ = camera.position.z;
+
+                var from = {
+                    x: camera.position.x,
+                    y: camera.position.y,
+                    z: camera.position.z
+                };
+
+                var to = {
+                    x: 0,
+                    y: 10,
+                    z: 25
+                };
+
+                console.log(from);
+
+                if (from != to) {
+                    var tween = new TWEEN.Tween(from)
+                        .to(to, 2000)
+                        .easing(TWEEN.Easing.Elastic.InOut)
+                        .onUpdate(function () {
+                        camera.position.set(this.x, this.y, this.z);
+                        camera.lookAt(new THREE.Vector3(0, 0, 0));
+                    })
+                        .onComplete(function () {
+                        camera.lookAt(new THREE.Vector3(0, 0, 0));
+                    })
+                    .start();
+                }
                 // TRAVAR A CAMERA
                 // controls.enabled = !controls.enabled;
             }
@@ -285,11 +330,11 @@
 
             raycaster.setFromCamera( mouse, camera );
 
-            $("#x").text( mouse.x);
-            $("#y").text( mouse.y);
+            // $("#x").text( mouse.x);
+            // $("#y").text( mouse.y);
 
-            $("#ox").text( objects[0].position.x);
-            $("#oy").text( objects[0].position.y);
+            // $("#ox").text( objects[0].position.x);
+            // $("#oy").text( objects[0].position.y);
 
             var intersects = raycaster.intersectObjects( objects, true );
 
@@ -299,6 +344,8 @@
                     if ( intersected ) intersected.material.color.setHex( baseColor );
                     intersected = intersects[ 0 ].object;
                     intersected.material.color.setHex( intersectColor );
+
+
                 }
                 document.body.style.cursor = 'pointer';
 
@@ -367,7 +414,7 @@
                 // controls.copyInto(camera.position, camera.direction, camera.up)
 
 
-                // TWEEN.update();
+                TWEEN.update();
 
                 render();
                 // update();

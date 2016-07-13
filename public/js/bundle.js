@@ -2,6 +2,7 @@
 
 
         var THREE = require('THREE');
+        var TWEEN = require('TWEEN');
         var container, renderElementByDomElement, renderElement, stats;
         var camera, scene, acpect, raycaster, renderer, controls;
 
@@ -16,7 +17,7 @@
         var particleMaterial;
         var intersected;
 
-        var baseColor = 0x333333;
+        var baseColor = 0xffffff;
         var foundColor = 0x12C0E3;
         var intersectColor = 0x00D66B;
 
@@ -97,9 +98,9 @@
             controls.minPolarAngle = Math.PI / 8 // radians
             controls.maxPolarAngle = Math.PI / 2; // radians
 
-            controls.minAzimuthAngle = - Math.PI / 5; // radians
-            controls.maxAzimuthAngle = Math.PI / 5 ; // radians
-                // controls.maxPolarAngle = 0.3;
+            // controls.minAzimuthAngle = - Math.PI / 5; // radians
+            // controls.maxAzimuthAngle = Math.PI / 5 ; // radians
+            // controls.maxPolarAngle = 0.3;
 
             var manager = new THREE.LoadingManager();
             manager.onProgress = function ( item, loaded, total ) {
@@ -121,23 +122,6 @@
                 console.log(xhr);
             };
 
-            // var helper = new THREE.GridHelper( 200, 10, 0x2a2a37, 0x2a2a37 );
-            //     helper.position.y = -10;
-            //     scene.add( helper );
-
-            // var sphere = new THREE.SphereGeometry();
-            // var object = new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( {color: 0xeeeeee } ) );
-            // var box = new THREE.BoxHelper( object );
-            // scene.add( box );
-
-
-            var pointLight = new THREE.PointLight( 0xffffff, 0.7, 100 );
-            pointLight.position.set( 10, 10, 10 );
-            scene.add( pointLight );
-
-            // var sphereSize = 1;
-            // var pointLightHelper = new THREE.PointLightHelper( pointLight, sphereSize );
-            // scene.add( pointLightHelper );
 
             // model
             var loader = new THREE.OBJLoader( manager ),
@@ -150,7 +134,7 @@
 
             var textureLoader = new THREE.TextureLoader();
 
-            var texturaDahora = textureLoader.load("public/3d-model/textures/textura-moca.jpg");
+            var texturaDahora = textureLoader.load("public/3d-model/textures/verao.jpg");
 
             // texturaDahora.wrapS = THREE.RepeatWrapping;
             // texturaDahora.wrapT = THREE.RepeatWrapping;
@@ -171,7 +155,7 @@
                     map: texturaDahora,
                     side: THREE.DoubleSide,
                     // shadding: THREE.SmoothShading,
-                    color: '#ffffff',
+                    color: '0xffffff',
                     emissive: "#101010",
                     // specular: "#ffffff",
                     shininess: 1,
@@ -187,6 +171,8 @@
                 object.position.y = -10;
                 object.position.z = 6;
                 // object.position.z = 140;
+
+                // baseColor = material.color;
 
                 object.traverse( function ( child ) {
 
@@ -228,20 +214,48 @@
             }
 
 
-            var light = new THREE.PointLight( 0xffffff, 0.4 );
-            light.position.set( -10, 11, 15 );
+            // LUZES
+            var light = new THREE.PointLight( 0xc1c1c1, 0.1 );
+            light.position.set( 0, 0, 50 );
             scene.add( light );
 
-            // var sphereSize2 = 2;
-            // var pointLightHelper2 = new THREE.PointLightHelper( light, sphereSize2 );
-            // scene.add( pointLightHelper2 );
+            var sphereSize2 = 2;
+            var pointLightHelper2 = new THREE.PointLightHelper( light, sphereSize2 );
+            scene.add( pointLightHelper2 );
 
-            var directionalLight = new THREE.DirectionalLight( 0x7F7F7F, 0.4);
-            directionalLight.position.set( 1, 1, -100 );
+            var directionalLight = new THREE.DirectionalLight( 0xc1c1c1, 0.1);
+            directionalLight.position.set( 0, 0, -50 );
             scene.add( directionalLight );
 
-            var ambientLight = new THREE.AmbientLight( 0x595959, 0.1 );
+            var pointLightHelper3 = new THREE.PointLightHelper( directionalLight, 5 );
+            scene.add( pointLightHelper3 );
+
+            var ambientLight = new THREE.AmbientLight( 0xd9d9d9, 0.2 );
             scene.add( ambientLight );
+
+            var pointLightHelper4 = new THREE.PointLightHelper( ambientLight, 2 );
+            scene.add( pointLightHelper4 );
+
+
+            // HELPERS
+
+             var helper = new THREE.GridHelper( 200, 10, 0x2a2a37, 0x2a2a37 );
+                helper.position.y = -10;
+                scene.add( helper );
+
+            var sphere = new THREE.SphereGeometry();
+            var object = new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( {color: 0xeeeeee } ) );
+            var box = new THREE.BoxHelper( object );
+            scene.add( box );
+
+
+            var pointLight = new THREE.PointLight( 0xffffff, 0.7, 100 );
+            pointLight.position.set( 10, 10, 10 );
+            scene.add( pointLight );
+
+            var sphereSize = 1;
+            var pointLightHelper = new THREE.PointLightHelper( pointLight, sphereSize );
+            scene.add( pointLightHelper );
 
             window.addEventListener('resize', onWindowResize, false);
             document.addEventListener('keydown', onKeyDown, false);
@@ -260,6 +274,37 @@
 
                 console.log(camera)
 
+                var posX = camera.position.x + 10;
+                var posY = camera.position.y;
+                var posZ = camera.position.z;
+
+                var from = {
+                    x: camera.position.x,
+                    y: camera.position.y,
+                    z: camera.position.z
+                };
+
+                var to = {
+                    x: 0,
+                    y: 10,
+                    z: 25
+                };
+
+                console.log(from);
+
+                if (from != to) {
+                    var tween = new TWEEN.Tween(from)
+                        .to(to, 2000)
+                        .easing(TWEEN.Easing.Elastic.InOut)
+                        .onUpdate(function () {
+                        camera.position.set(this.x, this.y, this.z);
+                        camera.lookAt(new THREE.Vector3(0, 0, 0));
+                    })
+                        .onComplete(function () {
+                        camera.lookAt(new THREE.Vector3(0, 0, 0));
+                    })
+                    .start();
+                }
                 // TRAVAR A CAMERA
                 // controls.enabled = !controls.enabled;
             }
@@ -286,11 +331,11 @@
 
             raycaster.setFromCamera( mouse, camera );
 
-            $("#x").text( mouse.x);
-            $("#y").text( mouse.y);
+            // $("#x").text( mouse.x);
+            // $("#y").text( mouse.y);
 
-            $("#ox").text( objects[0].position.x);
-            $("#oy").text( objects[0].position.y);
+            // $("#ox").text( objects[0].position.x);
+            // $("#oy").text( objects[0].position.y);
 
             var intersects = raycaster.intersectObjects( objects, true );
 
@@ -300,6 +345,8 @@
                     if ( intersected ) intersected.material.color.setHex( baseColor );
                     intersected = intersects[ 0 ].object;
                     intersected.material.color.setHex( intersectColor );
+
+
                 }
                 document.body.style.cursor = 'pointer';
 
@@ -368,7 +415,7 @@
                 // controls.copyInto(camera.position, camera.direction, camera.up)
 
 
-                // TWEEN.update();
+                TWEEN.update();
 
                 render();
                 // update();
@@ -388,7 +435,7 @@
 
             renderer.render( scene, camera );
         }
-},{"THREE":4,"three-obj-loader":2,"three-orbit-controls":3}],2:[function(require,module,exports){
+},{"THREE":4,"TWEEN":5,"three-obj-loader":2,"three-orbit-controls":3}],2:[function(require,module,exports){
 'use strict';
 
 module.exports = function (THREE) {
@@ -43697,4 +43744,662 @@ THREE.MorphBlendMesh.prototype.update = function ( delta ) {
 };
 
 
+},{}],5:[function(require,module,exports){
+/**
+ * @author sole / http://soledadpenades.com
+ * @author mrdoob / http://mrdoob.com
+ * @author Robert Eisele / http://www.xarg.org
+ * @author Philippe / http://philippe.elsass.me
+ * @author Robert Penner / http://www.robertpenner.com/easing_terms_of_use.html
+ * @author Paul Lewis / http://www.aerotwist.com/
+ * @author lechecacharro
+ * @author Josh Faul / http://jocafa.com/
+ * @author egraether / http://egraether.com/
+ */
+
+if ( Date.now === undefined ) {
+
+  Date.now = function () {
+
+    return new Date().valueOf();
+
+  }
+
+}
+
+var TWEEN = TWEEN || ( function () {
+
+  var _tweens = [];
+
+  return {
+
+    REVISION: '8',
+
+    getAll: function () {
+
+      return _tweens;
+
+    },
+
+    removeAll: function () {
+
+      _tweens = [];
+
+    },
+
+    add: function ( tween ) {
+
+      _tweens.push( tween );
+
+    },
+
+    remove: function ( tween ) {
+
+      var i = _tweens.indexOf( tween );
+
+      if ( i !== -1 ) {
+
+        _tweens.splice( i, 1 );
+
+      }
+
+    },
+
+    update: function ( time ) {
+
+      if ( _tweens.length === 0 ) return false;
+
+      var i = 0, numTweens = _tweens.length;
+
+      time = time !== undefined ? time : Date.now();
+
+      while ( i < numTweens ) {
+
+        if ( _tweens[ i ].update( time ) ) {
+
+          i ++;
+
+        } else {
+
+          _tweens.splice( i, 1 );
+
+          numTweens --;
+
+        }
+
+      }
+
+      return true;
+
+    }
+
+  };
+
+} )();
+
+TWEEN.Tween = function ( object ) {
+
+  var _object = object;
+  var _valuesStart = {};
+  var _valuesEnd = {};
+  var _duration = 1000;
+  var _delayTime = 0;
+  var _startTime = null;
+  var _easingFunction = TWEEN.Easing.Linear.None;
+  var _interpolationFunction = TWEEN.Interpolation.Linear;
+  var _chainedTweens = [];
+  var _onStartCallback = null;
+  var _onStartCallbackFired = false;
+  var _onUpdateCallback = null;
+  var _onCompleteCallback = null;
+
+  this.to = function ( properties, duration ) {
+
+    if ( duration !== undefined ) {
+
+      _duration = duration;
+
+    }
+
+    _valuesEnd = properties;
+
+    return this;
+
+  };
+
+  this.start = function ( time ) {
+
+    TWEEN.add( this );
+
+    _onStartCallbackFired = false;
+
+    _startTime = time !== undefined ? time : Date.now();
+    _startTime += _delayTime;
+
+    for ( var property in _valuesEnd ) {
+
+      // This prevents the interpolation of null values or of non-existing properties
+      if( _object[ property ] === null || !(property in _object) ) {
+
+        continue;
+
+      }
+
+      // check if an Array was provided as property value
+      if ( _valuesEnd[ property ] instanceof Array ) {
+
+        if ( _valuesEnd[ property ].length === 0 ) {
+
+          continue;
+
+        }
+
+        // create a local copy of the Array with the start value at the front
+        _valuesEnd[ property ] = [ _object[ property ] ].concat( _valuesEnd[ property ] );
+
+      }
+
+      _valuesStart[ property ] = _object[ property ];
+
+    }
+
+    return this;
+
+  };
+
+  this.stop = function () {
+
+    TWEEN.remove( this );
+    return this;
+
+  };
+
+  this.delay = function ( amount ) {
+
+    _delayTime = amount;
+    return this;
+
+  };
+
+  this.easing = function ( easing ) {
+
+    _easingFunction = easing;
+    return this;
+
+  };
+
+  this.interpolation = function ( interpolation ) {
+
+    _interpolationFunction = interpolation;
+    return this;
+
+  };
+
+  this.chain = function () {
+
+    _chainedTweens = arguments;
+    return this;
+
+  };
+
+  this.onStart = function ( callback ) {
+
+    _onStartCallback = callback;
+    return this;
+
+  };
+
+  this.onUpdate = function ( callback ) {
+
+    _onUpdateCallback = callback;
+    return this;
+
+  };
+
+  this.onComplete = function ( callback ) {
+
+    _onCompleteCallback = callback;
+    return this;
+
+  };
+
+  this.update = function ( time ) {
+
+    if ( time < _startTime ) {
+
+      return true;
+
+    }
+
+    if ( _onStartCallbackFired === false ) {
+
+      if ( _onStartCallback !== null ) {
+
+        _onStartCallback.call( _object );
+
+      }
+
+      _onStartCallbackFired = true;
+
+    }
+
+    var elapsed = ( time - _startTime ) / _duration;
+    elapsed = elapsed > 1 ? 1 : elapsed;
+
+    var value = _easingFunction( elapsed );
+
+    for ( var property in _valuesStart ) {
+
+      var start = _valuesStart[ property ];
+      var end = _valuesEnd[ property ];
+
+      if ( end instanceof Array ) {
+
+        _object[ property ] = _interpolationFunction( end, value );
+
+      } else {
+
+        _object[ property ] = start + ( end - start ) * value;
+
+      }
+
+    }
+
+    if ( _onUpdateCallback !== null ) {
+
+      _onUpdateCallback.call( _object, value );
+
+    }
+
+    if ( elapsed == 1 ) {
+
+      if ( _onCompleteCallback !== null ) {
+
+        _onCompleteCallback.call( _object );
+
+      }
+
+      for ( var i = 0, numChainedTweens = _chainedTweens.length; i < numChainedTweens; i ++ ) {
+
+        _chainedTweens[ i ].start( time );
+
+      }
+
+      return false;
+
+    }
+
+    return true;
+
+  };
+
+};
+
+TWEEN.Easing = {
+
+  Linear: {
+
+    None: function ( k ) {
+
+      return k;
+
+    }
+
+  },
+
+  Quadratic: {
+
+    In: function ( k ) {
+
+      return k * k;
+
+    },
+
+    Out: function ( k ) {
+
+      return k * ( 2 - k );
+
+    },
+
+    InOut: function ( k ) {
+
+      if ( ( k *= 2 ) < 1 ) return 0.5 * k * k;
+      return - 0.5 * ( --k * ( k - 2 ) - 1 );
+
+    }
+
+  },
+
+  Cubic: {
+
+    In: function ( k ) {
+
+      return k * k * k;
+
+    },
+
+    Out: function ( k ) {
+
+      return --k * k * k + 1;
+
+    },
+
+    InOut: function ( k ) {
+
+      if ( ( k *= 2 ) < 1 ) return 0.5 * k * k * k;
+      return 0.5 * ( ( k -= 2 ) * k * k + 2 );
+
+    }
+
+  },
+
+  Quartic: {
+
+    In: function ( k ) {
+
+      return k * k * k * k;
+
+    },
+
+    Out: function ( k ) {
+
+      return 1 - ( --k * k * k * k );
+
+    },
+
+    InOut: function ( k ) {
+
+      if ( ( k *= 2 ) < 1) return 0.5 * k * k * k * k;
+      return - 0.5 * ( ( k -= 2 ) * k * k * k - 2 );
+
+    }
+
+  },
+
+  Quintic: {
+
+    In: function ( k ) {
+
+      return k * k * k * k * k;
+
+    },
+
+    Out: function ( k ) {
+
+      return --k * k * k * k * k + 1;
+
+    },
+
+    InOut: function ( k ) {
+
+      if ( ( k *= 2 ) < 1 ) return 0.5 * k * k * k * k * k;
+      return 0.5 * ( ( k -= 2 ) * k * k * k * k + 2 );
+
+    }
+
+  },
+
+  Sinusoidal: {
+
+    In: function ( k ) {
+
+      return 1 - Math.cos( k * Math.PI / 2 );
+
+    },
+
+    Out: function ( k ) {
+
+      return Math.sin( k * Math.PI / 2 );
+
+    },
+
+    InOut: function ( k ) {
+
+      return 0.5 * ( 1 - Math.cos( Math.PI * k ) );
+
+    }
+
+  },
+
+  Exponential: {
+
+    In: function ( k ) {
+
+      return k === 0 ? 0 : Math.pow( 1024, k - 1 );
+
+    },
+
+    Out: function ( k ) {
+
+      return k === 1 ? 1 : 1 - Math.pow( 2, - 10 * k );
+
+    },
+
+    InOut: function ( k ) {
+
+      if ( k === 0 ) return 0;
+      if ( k === 1 ) return 1;
+      if ( ( k *= 2 ) < 1 ) return 0.5 * Math.pow( 1024, k - 1 );
+      return 0.5 * ( - Math.pow( 2, - 10 * ( k - 1 ) ) + 2 );
+
+    }
+
+  },
+
+  Circular: {
+
+    In: function ( k ) {
+
+      return 1 - Math.sqrt( 1 - k * k );
+
+    },
+
+    Out: function ( k ) {
+
+      return Math.sqrt( 1 - ( --k * k ) );
+
+    },
+
+    InOut: function ( k ) {
+
+      if ( ( k *= 2 ) < 1) return - 0.5 * ( Math.sqrt( 1 - k * k) - 1);
+      return 0.5 * ( Math.sqrt( 1 - ( k -= 2) * k) + 1);
+
+    }
+
+  },
+
+  Elastic: {
+
+    In: function ( k ) {
+
+      var s, a = 0.1, p = 0.4;
+      if ( k === 0 ) return 0;
+      if ( k === 1 ) return 1;
+      if ( !a || a < 1 ) { a = 1; s = p / 4; }
+      else s = p * Math.asin( 1 / a ) / ( 2 * Math.PI );
+      return - ( a * Math.pow( 2, 10 * ( k -= 1 ) ) * Math.sin( ( k - s ) * ( 2 * Math.PI ) / p ) );
+
+    },
+
+    Out: function ( k ) {
+
+      var s, a = 0.1, p = 0.4;
+      if ( k === 0 ) return 0;
+      if ( k === 1 ) return 1;
+      if ( !a || a < 1 ) { a = 1; s = p / 4; }
+      else s = p * Math.asin( 1 / a ) / ( 2 * Math.PI );
+      return ( a * Math.pow( 2, - 10 * k) * Math.sin( ( k - s ) * ( 2 * Math.PI ) / p ) + 1 );
+
+    },
+
+    InOut: function ( k ) {
+
+      var s, a = 0.1, p = 0.4;
+      if ( k === 0 ) return 0;
+      if ( k === 1 ) return 1;
+      if ( !a || a < 1 ) { a = 1; s = p / 4; }
+      else s = p * Math.asin( 1 / a ) / ( 2 * Math.PI );
+      if ( ( k *= 2 ) < 1 ) return - 0.5 * ( a * Math.pow( 2, 10 * ( k -= 1 ) ) * Math.sin( ( k - s ) * ( 2 * Math.PI ) / p ) );
+      return a * Math.pow( 2, -10 * ( k -= 1 ) ) * Math.sin( ( k - s ) * ( 2 * Math.PI ) / p ) * 0.5 + 1;
+
+    }
+
+  },
+
+  Back: {
+
+    In: function ( k ) {
+
+      var s = 1.70158;
+      return k * k * ( ( s + 1 ) * k - s );
+
+    },
+
+    Out: function ( k ) {
+
+      var s = 1.70158;
+      return --k * k * ( ( s + 1 ) * k + s ) + 1;
+
+    },
+
+    InOut: function ( k ) {
+
+      var s = 1.70158 * 1.525;
+      if ( ( k *= 2 ) < 1 ) return 0.5 * ( k * k * ( ( s + 1 ) * k - s ) );
+      return 0.5 * ( ( k -= 2 ) * k * ( ( s + 1 ) * k + s ) + 2 );
+
+    }
+
+  },
+
+  Bounce: {
+
+    In: function ( k ) {
+
+      return 1 - TWEEN.Easing.Bounce.Out( 1 - k );
+
+    },
+
+    Out: function ( k ) {
+
+      if ( k < ( 1 / 2.75 ) ) {
+
+        return 7.5625 * k * k;
+
+      } else if ( k < ( 2 / 2.75 ) ) {
+
+        return 7.5625 * ( k -= ( 1.5 / 2.75 ) ) * k + 0.75;
+
+      } else if ( k < ( 2.5 / 2.75 ) ) {
+
+        return 7.5625 * ( k -= ( 2.25 / 2.75 ) ) * k + 0.9375;
+
+      } else {
+
+        return 7.5625 * ( k -= ( 2.625 / 2.75 ) ) * k + 0.984375;
+
+      }
+
+    },
+
+    InOut: function ( k ) {
+
+      if ( k < 0.5 ) return TWEEN.Easing.Bounce.In( k * 2 ) * 0.5;
+      return TWEEN.Easing.Bounce.Out( k * 2 - 1 ) * 0.5 + 0.5;
+
+    }
+
+  }
+
+};
+
+TWEEN.Interpolation = {
+
+  Linear: function ( v, k ) {
+
+    var m = v.length - 1, f = m * k, i = Math.floor( f ), fn = TWEEN.Interpolation.Utils.Linear;
+
+    if ( k < 0 ) return fn( v[ 0 ], v[ 1 ], f );
+    if ( k > 1 ) return fn( v[ m ], v[ m - 1 ], m - f );
+
+    return fn( v[ i ], v[ i + 1 > m ? m : i + 1 ], f - i );
+
+  },
+
+  Bezier: function ( v, k ) {
+
+    var b = 0, n = v.length - 1, pw = Math.pow, bn = TWEEN.Interpolation.Utils.Bernstein, i;
+
+    for ( i = 0; i <= n; i++ ) {
+      b += pw( 1 - k, n - i ) * pw( k, i ) * v[ i ] * bn( n, i );
+    }
+
+    return b;
+
+  },
+
+  CatmullRom: function ( v, k ) {
+
+    var m = v.length - 1, f = m * k, i = Math.floor( f ), fn = TWEEN.Interpolation.Utils.CatmullRom;
+
+    if ( v[ 0 ] === v[ m ] ) {
+
+      if ( k < 0 ) i = Math.floor( f = m * ( 1 + k ) );
+
+      return fn( v[ ( i - 1 + m ) % m ], v[ i ], v[ ( i + 1 ) % m ], v[ ( i + 2 ) % m ], f - i );
+
+    } else {
+
+      if ( k < 0 ) return v[ 0 ] - ( fn( v[ 0 ], v[ 0 ], v[ 1 ], v[ 1 ], -f ) - v[ 0 ] );
+      if ( k > 1 ) return v[ m ] - ( fn( v[ m ], v[ m ], v[ m - 1 ], v[ m - 1 ], f - m ) - v[ m ] );
+
+      return fn( v[ i ? i - 1 : 0 ], v[ i ], v[ m < i + 1 ? m : i + 1 ], v[ m < i + 2 ? m : i + 2 ], f - i );
+
+    }
+
+  },
+
+  Utils: {
+
+    Linear: function ( p0, p1, t ) {
+
+      return ( p1 - p0 ) * t + p0;
+
+    },
+
+    Bernstein: function ( n , i ) {
+
+      var fc = TWEEN.Interpolation.Utils.Factorial;
+      return fc( n ) / fc( i ) / fc( n - i );
+
+    },
+
+    Factorial: ( function () {
+
+      var a = [ 1 ];
+
+      return function ( n ) {
+
+        var s = 1, i;
+        if ( a[ n ] ) return a[ n ];
+        for ( i = n; i > 1; i-- ) s *= i;
+        return a[ n ] = s;
+
+      };
+
+    } )(),
+
+    CatmullRom: function ( p0, p1, p2, p3, t ) {
+
+      var v0 = ( p2 - p0 ) * 0.5, v1 = ( p3 - p1 ) * 0.5, t2 = t * t, t3 = t * t2;
+      return ( 2 * p1 - 2 * p2 + v0 + v1 ) * t3 + ( - 3 * p1 + 3 * p2 - 2 * v0 - v1 ) * t2 + v0 * t + p1;
+
+    }
+
+  }
+
+};
+
+module.exports = TWEEN;
 },{}]},{},[1]);

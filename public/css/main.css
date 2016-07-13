@@ -1,3 +1,14 @@
-body {
+.full-view {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   margin: 0;
-  background-color: transparent; }
+  padding: 0;
+  z-index: 1;
+  background-color: #1B1C1D; }
+
+header {
+  position: relative;
+  z-index: 2; }

@@ -53,37 +53,39 @@
         This is the default content
     {% endblock %}
 
-    <footer class="ui vertical very padded inverted segment">
-        <div class="ui container">
-            <div class="ui middle aligned four column centered grid">
-                <div class="row">
-                    <div class="column">
-                        <h4>
-                               <img class="" src="/assets/images/logo.png">
-                        </h4>
-                        <div class="description">
-                            <p>A maneira mais rápida de criar, compartilhar e enviar camisetas.</p>
+    {% if noFooter != true %}
+        <footer class="ui vertical very padded inverted segment">
+            <div class="ui container">
+                <div class="ui middle aligned four column centered grid">
+                    <div class="row">
+                        <div class="column">
+                            <h4>
+                                   <img class="" src="/assets/images/logo.png">
+                            </h4>
+                            <div class="description">
+                                <p>A maneira mais rápida de criar, compartilhar e enviar camisetas.</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="column">
-                        <h4 class="ui inverted header">Informações</h4>
-                        <div class="ui inverted link list">
-                            <a href="#" class="item">A empresa</a>
-                            <a href="#" class="item">Termos de Uso</a>
-                            <a href="#" class="item">Privacidade</a>
+                        <div class="column">
+                            <h4 class="ui inverted header">Informações</h4>
+                            <div class="ui inverted link list">
+                                <a href="#" class="item">A empresa</a>
+                                <a href="#" class="item">Termos de Uso</a>
+                                <a href="#" class="item">Privacidade</a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="column">
-                        <h4 class="ui inverted header">Formas de Pagamento</h4>
-                        <i class="barcode big icon"></i>
-                        <i class="visa big icon"></i>
-                        <i class="mastercard big icon"></i>
-                    </div>
+                        <div class="column">
+                            <h4 class="ui inverted header">Formas de Pagamento</h4>
+                            <i class="barcode big icon"></i>
+                            <i class="visa big icon"></i>
+                            <i class="mastercard big icon"></i>
+                        </div>
 
+                    </div>
                 </div>
             </div>
-        </div>
-    </footer>
+        </footer>
+    {% endif %}
 
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
