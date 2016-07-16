@@ -25,6 +25,11 @@
         var frustumSize = 1000;
         var amostraOPanda = true;
 
+        // Controls of animation
+        var animating = false;
+        var timeOutAnimation;
+        var pauseAntimation = false;
+
         initThreeJs();
         animate();
 
@@ -133,9 +138,9 @@
 
             var textureLoader = new THREE.TextureLoader();
 
-            var texturaDahora = textureLoader.load("public/3d-model/textures/textura-moca.jpg");
+            var texturaDahora = textureLoader.load("public/3d-model/textures/tshirt-texture.jpg");
 
-            // texturaDahora.wrapS = THREE.RepeatWrapping;
+            // texturaDahora.wrapS = THREE.RepeatWrapping;rafa
             // texturaDahora.wrapT = THREE.RepeatWrapping;
 
             texturaDahora.offset.x = -0.05;
@@ -154,7 +159,7 @@
                     map: texturaDahora,
                     side: THREE.DoubleSide,
                     // shadding: THREE.SmoothShading,
-                    color: '0xffffff',
+                    color: '#ffffff',
                     emissive: "#101010",
                     // specular: "#ffffff",
                     shininess: 1,
@@ -260,6 +265,8 @@
             document.addEventListener('keydown', onKeyDown, false);
 
             renderer.domElement.addEventListener( 'mousemove', onDocumentMouseMove, false );
+            renderer.domElement.addEventListener( 'mouseup', onDocumentMouseUp, false );
+            renderer.domElement.addEventListener( 'mousedown', onDocumentMouseDown, false );
             window.requestAnimationFrame(render);
             // document.addEventListener( 'mouseup', onDocumentMouseUp, false );
             // renderElementByDomElement.addEventListener( 'mouseup', onDocumentMouseUp, false );
@@ -273,7 +280,19 @@
 
                 console.log(camera)
 
-                var posX = camera.position.x + 10;
+                centralizeModel();
+                // TRAVAR A CAMERA
+                // controls.enabled = !controls.enabled;
+            }
+        }
+        function centralizeModel() {
+
+            if (pauseAntimation) { return; }
+
+            clearTimeout(timeOutAnimation);
+
+            timeOutAnimation = setTimeout(function() {
+                var posX = camera.position.x;
                 var posY = camera.position.y;
                 var posZ = camera.position.z;
 
@@ -285,30 +304,27 @@
 
                 var to = {
                     x: 0,
-                    y: 10,
+                    y: 5,
                     z: 25
                 };
-
-                console.log(from);
-
-                if (from != to) {
-                    var tween = new TWEEN.Tween(from)
-                        .to(to, 2000)
-                        .easing(TWEEN.Easing.Elastic.InOut)
-                        .onUpdate(function () {
+                 var tween = new TWEEN.Tween(from)
+                    .to(to, 1500)
+                    .easing(TWEEN.Easing.Quintic.InOut)
+                    .onUpdate(function () {
                         camera.position.set(this.x, this.y, this.z);
                         camera.lookAt(new THREE.Vector3(0, 0, 0));
                     })
-                        .onComplete(function () {
+                    .onStart(function () {
+                        animating = true;
+                    })
+                    .onComplete(function () {
+                        animating = false;
                         camera.lookAt(new THREE.Vector3(0, 0, 0));
                     })
                     .start();
-                }
-                // TRAVAR A CAMERA
-                // controls.enabled = !controls.enabled;
-            }
-        }
 
+            }, 500);
+        }
         function onWindowResize() {
             var WIDTH = renderElement.width(),
                 HEIGHT = renderElement.height();
@@ -369,42 +385,23 @@
             // }
 
             // renderElementByDomElement.style.cursor = '-webkit-grabbing';
+        }
 
+        function onDocumentMouseUp( event ) {
+            event.preventDefault();
 
+            pauseAntimation = false;
+
+            centralizeModel();
 
         }
 
-        // function onDocumentMouseUp( event ) {
+        function onDocumentMouseDown( event ) {
+            event.preventDefault();
+            pauseAntimation = true;
+           clearTimeout(timeOutAnimation);
 
-        //     event.preventDefault();
-
-        //     raycaster.setFromCamera( mouse, camera );
-
-        //     var intersects = raycaster.intersectObjects( scene.children );
-
-        //     if ( intersects.length > 0 ) {
-        //         // console.log(intersects[0].object);
-
-        //         if ( INTERSECTED != intersects[ 0 ].object ) {
-
-        //             // if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
-
-        //             // INTERSECTED = intersects[ 0 ].object;
-        //             // INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
-        //             // INTERSECTED.material.emissive.setHex( 0xff0000 );
-
-
-        //         }
-
-        //     } else {
-
-        //         if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
-
-        //         INTERSECTED = null;
-
-        //     }
-
-        // }
+        }
 
         function animate() {
 
