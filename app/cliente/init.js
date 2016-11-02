@@ -1,14 +1,15 @@
 const passport = require('passport')
 
-function initUser (app) {
-    app.get('/profile', isLoggedIn, renderProfile)
+function initCliente (app) {
+    // URL Profile
+    app.get('/perfil', isLoggedIn, renderProfile)
 
-    app.get('/signup', function(req, res) {
-        res.render('user/cadastro', { message: req.flash('signupMessage') })
+    app.get('/cadastro', function(req, res) {
+        res.render('cliente/cadastro', { message: req.flash('signupMessage') })
     })
 
     // process the signup form
-    app.post('/signup', passport.authenticate('local-signup', {
+    app.post('/cadastro', passport.authenticate('local-signup', {
         successRedirect : '/profile', // redirect to the secure profile section
         failureRedirect : '/signup', // redirect back to the signup page if there is an error
         failureFlash : true // allow flash messages
@@ -16,7 +17,7 @@ function initUser (app) {
 
     app.get('/login', function(req, res) {
         // console.log(req.query);
-        res.render('user/login', { message: req.flash('loginMessage'), Layout: null })
+        res.render('cliente/login', { message: req.flash('loginMessage'), Layout: null })
     })
 
     app.post('/login', function(req, res, next) {
@@ -66,7 +67,7 @@ ensureAuthenticated = function (req, res, next) {
 }
 
 function renderProfile (req, res) {
-    res.render('user/profile', {
+    res.render('cliente/perfil', {
         usuario: req.user,
         nome: req.user.local.name,
         isLogado: true
@@ -83,4 +84,4 @@ function isLoggedIn(req, res, next) {
     res.redirect('/login');
 }
 
-module.exports = initUser
+module.exports = initCliente

@@ -46,6 +46,14 @@ jspm_packages
 <<<<<<< HEAD
 
 # Semantic UI directory
-semantic
+semantic/out/*
+semantic/gulpfile.js
+semantic/src/definitions
+semantic/src/semantic.less
+semantic/src/theme.less
+semantic/src/themes
+semantic/tasks
+!semantic/out/semantic.min.css
+!semantic/out/semantic.min.js
 =======
 >>>>>>> 21720ea4fb96a01d78672ab0c8c5ebecdc972509

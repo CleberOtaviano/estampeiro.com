@@ -1,14 +1,65 @@
-.full-view {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  margin: 0;
-  padding: 0;
-  z-index: 1;
-  background-color: #ccc; }
-
 header {
   position: relative;
   z-index: 2; }
+
+.main-builder {
+  display: inline-block;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  background-color: #f1f1f1; }
+  .main-builder .full-view {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    z-index: 1;
+    background-color: #ccc;
+    transition: all .8s ease; }
+    .main-builder .full-view.comprando {
+      top: 50%;
+      left: 8%;
+      width: 35%;
+      height: 50%;
+      transform: translateY(-50%);
+      box-shadow: 0 10px 40px -4px rgba(0, 0, 0, 0.4);
+      border-radius: 5px;
+      overflow: hidden; }
+      .main-builder .full-view.comprando canvas {
+        width: 100% !important;
+        height: 100% !important;
+        position: absolute !important;
+        top: 0px !important; }
+  .main-builder .controles-build {
+    position: absolute;
+    top: 50%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+    width: 180px;
+    height: 230px;
+    z-index: 1;
+    transition: all .4s ease;
+    border-radius: 5px;
+    padding: 10px; }
+    .main-builder .controles-build.information-build {
+      left: 30%;
+      width: 200px;
+      z-index: 2;
+      text-align: right;
+      visibility: hidden;
+      transform: translate(-60%, -50%);
+      opacity: 0; }
+    .main-builder .controles-build.payment-build {
+      visibility: hidden;
+      transform: translate(-40%, -50%);
+      opacity: 0; }
+    .main-builder .controles-build.visivel {
+      visibility: visible;
+      transform: translate(-50%, -50%);
+      opacity: 1; }
+
+.hide {
+  display: none; }

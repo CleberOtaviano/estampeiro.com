@@ -1,7 +1,7 @@
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 
-const User = require('../user/model')
+const User = require('../cliente/model')
 
 const authenticationMiddleware = require('./middleware')
 
@@ -46,7 +46,7 @@ function initPassport () {
 
                     // if there is no user with that email
                     // create the user
-                    var newUser            = new User();
+                    var newUser = new User();
 
                     // set the user's local credentials
                     newUser.local.email    = email;

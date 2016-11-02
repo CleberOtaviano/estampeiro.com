@@ -1,31 +1,408 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    <div class="ui inverted vertical black masthead bg-azul center aligned segment">
-        {% include "menu.html" %}
-        <div style="position: fixed; z-index: 1000; top: 100px; left: 100px;">
-            <p>X<span id="x"></span></p>
-            <p>Y<span id="y"></span></p>
 
-            <hr>
-            object
-            <p>X<span id="ox"></span></p>
-            <p>Y<span id="oy"></span></p>
+    <div class="main-builder">
+        {% include "menu-builder.html" %}
+
+        <div class="controles-build information-build">
+            <div>
+                <h2>R$ <strong class="ui huge header">19,90</strong></h2>
+            </div>
+            <div class="descricao" style="margin-top: 10px;">
+                <p>Lorem ipsum collor dolor its amet bla jujuba alinhada</p>
+            </div>
+
+            <div class="outras-acoes" style="margin-top: 25px;">
+                <a class="ui button basic">saiba mais</a>
+            </div>
         </div>
-        <div class="full-view inverted segment" id="builderContainer">
+
+        <div class="full-view" id="builderContainer">
 
         </div>
+
+        <div class="controles-build payment-build">
+            <div>
+                <h4 class="header">Cor</h4>
+                <div class="description">
+                    <div class="cores">
+                        {% for cor in cores %}
+                            <a href="#"
+                                class="circular ui {{cor.ref}} icon button color"
+                                data-offset="-10"
+                                data-content="{{cor.name}}"
+                                data-hexa="{{cor.hexa}}"></a>
+                        {% endfor %}
+                    </div>
+
+                    <div class="tamanho" style="margin-top: 15px">
+                        <h4 class="header">Tamanho</h4>
+                        <a class="ui mini button circular">P</a>
+                        <a class="ui mini button circular">M</a>
+                        <a class="ui mini button circular">G</a>
+                    </div>
+
+                    <div class="checkout" style="margin-top: 35px;">
+                        <a class="ui huge circular green button" id="comprar">comprar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui container">
+            <div class="ui grid">
+
+                <div class="two column row">
+                    <div class="column">
+                        <div class="ui basic segment">
+                            <div class="ui breadcrumb">
+                                <a class="section">Home</a>
+                                <div class="divider"> / </div>
+                                <a href="/builder" class="section">Builder</a>
+                                <div class="divider"> / </div>
+                                <div class="active section">Camiseta</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui basic center aligned segment">
+
+                            <div class="ui ordered relaxed horizontal animated list">
+                                <div class="item">
+                                    <i class="user large blue icon"></i>
+                                    <div class="middle aligned content">
+                                        <div class="header">Criar conta</div>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <i class="shipping large grey icon"></i>
+                                    <div class="middle aligned content">
+                                        <div class="header">Envio</div>
+                                    </div>
+                                </div>
+
+                                <div class="item">
+                                    <i class="credit card alternative large grey icon"></i>
+                                    <div class="middle aligned content">
+                                        <div class="header">Pagamento</div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="ui grid">
+                            <div class="ten wide column centered">
+                                <div class="ui padded segment" data-current-step='1'>
+                                    <form class="ui form cadastro_form" id="cadastro_form" data-action="/cadastro" data-step='1'>
+                                        <h4 class="ui dividing header">Cadastro Rápido</h4>
+                                        <div class="fields fade-login">
+                                            <div class="sixteen wide field">
+                                                <label>Nome</label>
+                                                <div class="ui input">
+                                                    <input type="text" id="user_name" name="user[name]" placeholder="Nome completo" value="NOME TESTE">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="fields">
+                                            <div class="sixteen wide field">
+                                                <label>E-mail</label>
+                                                <div class="ui input">
+                                                    <input type="text" id="user_email" name="user[name]" placeholder="Digite seu e-mail" value="a@a.com">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="fields">
+                                            <div class="sixteen wide field">
+                                                <label>Senha</label>
+                                                <div class="ui icon input">
+                                                    <input type="password" id="user_password" name="user[password]" placeholder="Mínimo 6 caracteres" value="senha1">
+                                                    <i class="link unhide icon ver-senha"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="field fade-login">
+                                            <div class="ui checkbox">
+                                                <input type="checkbox" tabindex="0" class="hidden">
+                                                <label>Li e concordo com os <a class="ui green"><strong>Termos</strong></a> e <a><strong>Condições</strong></a></label>
+                                            </div>
+                                        </div>
+
+                                        <div class="ui error message">
+
+                                        </div>
+                                    </form>
+
+                                    <form class="ui form login_form" id="login_form" data-action="/login">
+                                        <h4 class="ui dividing header">Login</h4>
+
+                                        <div class="fields">
+                                            <div class="sixteen wide field">
+                                                <label>E-mail</label>
+                                                <div class="ui input">
+                                                    <input type="text" id="user_email" name="user[name]" placeholder="Digite seu e-mail" value="a@a.com">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="fields">
+                                            <div class="sixteen wide field">
+                                                <label>Senha</label>
+                                                <div class="ui icon input">
+                                                    <input type="password" id="user_password" name="user[password]" placeholder="Mínimo 6 caracteres" value="senha1">
+                                                    <i class="link unhide icon"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="ui error message">
+
+                                        </div>
+                                    </form>
+
+                                    <form class="ui form envio_form" id="envio_form" data-action="/cadastro/endereco"  data-step='2'>
+                                        <h4 class="ui dividing header">Local de Entrega</h4>
+                                        <div class="fields">
+                                            <div class="sixteen wide field">
+                                                <label>CEP</label>
+                                                <div class="ui input">
+                                                    <input type="text" id="endereco_cep" name="endereco[cep]" placeholder="00000-000">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="fields">
+                                            <div class="ten wide field">
+                                                <label>Endereço</label>
+                                                <div class="ui input">
+                                                    <input type="text" id="endereco_logradouro" name="endereco[logradouro]" placeholder="Rua, Av, Estrada">
+                                                </div>
+                                            </div>
+
+                                            <div class="six wide field">
+                                                <label>Número</label>
+                                                <div class="ui input">
+                                                    <input type="text" id="endereco_numero" name="endereco[numero]" placeholder="1001">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="fields">
+                                            <div class="six wide field">
+                                                <label>Complemento</label>
+                                                <div class="ui input">
+                                                    <input type="text" id="endereco_complemento" name="endereco[complemento]" placeholder="Ap 2">
+                                                </div>
+                                            </div>
+
+                                            <div class="ten wide field">
+                                                <label>Bairro</label>
+                                                <div class="ui input">
+                                                    <input type="text" id="endereco_bairro" name="endereco[bairro]" placeholder="Jardim Flores">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="ui error message">
+
+                                        </div>
+                                    </form>
+
+                                    <form class="ui form pagamento_form" id="pagamento_form" data-action="/pagamento"  data-step='3'>
+                                        <h4 class="ui dividing header">Informações de Pagamento</h4>
+                                        <div class="fields">
+                                            <div class="sixteen wide field">
+                                                <label>Nome</label>
+                                                <input type="text" id="card_holder_name" name="card[name]" placeholder="Nome conforme no cartão" value="NOME TESTE">
+
+                                            </div>
+                                        </div>
+                                        <div class="fields">
+                                            <div class="sixteen wide field">
+                                                <label>Número do Cartão</label>
+                                                <input type="text" id="card_number" name="card[number]" maxlength="16" placeholder="Número do Cartão" value="4716214366261034">
+                                            </div>
+                                        </div>
+                                        <div class="fields">
+                                            <div class="five wide field">
+                                                <label>Codigo</label>
+                                                <input type="text" id="card_cvv" name="card[cvc]" maxlength="3" placeholder="Codigo" value="123">
+                                            </div>
+                                            <div class="eleven wide field">
+                                                <label>Expiration</label>
+                                                <div class="two fields">
+                                                    <div class="field">
+                                                        <select class="ui fluid search dropdown" id="card_expiration_month" name="card[expire-month]">
+                                                            <option value="">Mês</option>
+                                                            <option value="1" selected>Janeiro</option>
+                                                            <option value="2">Fevereiro</option>
+                                                            <option value="3">Março</option>
+                                                            <option value="4">Abril</option>
+                                                            <option value="5">Maio</option>
+                                                            <option value="6">Junho</option>
+                                                            <option value="7">Julho</option>
+                                                            <option value="8">Agosto</option>
+                                                            <option value="9">Setembro</option>
+                                                            <option value="10">Outubro</option>
+                                                            <option value="11">Novembro</option>
+                                                            <option value="12">Dezembro</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="field">
+                                                        <input type="text" id="card_expiration_year" name="card[expire-year]" maxlength="4" placeholder="Ano" value="2020">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="ui error message">
+
+                                        </div>
+                                    </form>
+
+                                </div>
+
+                                <div class="ui left floated basic button jaPossuiCadastro">
+                                    Ja possuo cadastro
+                                </div>
+
+                                <div class="ui left floated basic icon button voltar-login">
+                                    <i class="left chevron icon"></i>
+                                    voltar
+                                </div>
+
+                                <div class="ui right floated submit primary icon button" id="proximo">
+                                    Próximo
+                                    <i class="right chevron icon"></i>
+                                </div>
+
+                                <div class="ui right floated submit green button" id="finalizar">Finalizar</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
     </div>
+
 {% endblock %}
 
 {% block javascript %}
-    <script src="/semantic/out/components/popup.js" type="text/javascript" charset="utf-8" async defer></script>
 
-    <script src="/public/js/bundle.js" type="text/javascript" charset="utf-8" async defer></script>
+    <script src="/public/js/bundle.js" type="text/javascript" charset="utf-8"></script>
 
-    <script type="text/javascript" charset="utf-8" async defer>
-        $('[data-popup]')
-          .popup()
-        ;
+    <script type="text/javascript" charset="utf-8">
+
+        $(document).ready(function() {
+
+            setTimeout(function() {
+                $('#animate').transition({
+                    animation  : 'swing down',
+                    duration   : '1s'
+                });
+            }, 2000);
+
+            $("[data-content]").popup();
+
+            $('.ui.form')
+                .form({
+                    on: 'blur',
+                    inline : true,
+                    fields: {
+                        name: {
+                            identifier  : 'card[name]',
+                            rules: [
+                                {
+                                    type   : 'empty',
+                                    prompt : 'Por favor digite o nome conform consta no Cartão'
+                                }
+                            ]
+                        },
+                        card: {
+                            identifier  : 'card[number]',
+                            rules: [
+                                {
+                                    type   : 'creditCard',
+                                    prompt : 'Por favor digite um cartão de creidto válido'
+                                }
+                            ]
+                        },
+                        cvc: {
+                            identifier  : 'card[cvc]',
+                            rules: [
+                                {
+                                    type   : 'empty',
+                                    prompt : 'Por favor digite um codigo'
+                                }
+                            ]
+                        }
+                    }
+                });
+
+             $('.ui.checkbox').checkbox();
+        });
+        $(document).ready(function() { // quando o jQuery estiver carregado...
+            PagarMe.encryption_key = "ek_test_iXseMvYYwHxXVWxXjv3i0fZa4R8Owm";
+
+            var form = $("#payment_form");
+
+            $('#comprarEnviar').on('click', function(e) {
+                $(this).addClass("disabled loading");
+            });
+
+            form.submit(function(event) { // quando o form for enviado...
+                // inicializa um objeto de cartão de crédito e completa
+                // com os dados do form
+
+                $('#comprarEnviar').on('click', function(e) {
+                    $(this).addClass("disabled loading");
+                });
+
+
+                var creditCard = new PagarMe.creditCard();
+                creditCard.cardHolderName = $("#payment_form #card_holder_name").val();
+                creditCard.cardExpirationMonth = $("#payment_form #card_expiration_month").val();
+                creditCard.cardExpirationYear = $("#payment_form #card_expiration_year").val();
+                creditCard.cardNumber = $("#payment_form #card_number").val();
+                creditCard.cardCVV = $("#payment_form #card_cvv").val();
+
+                // pega os erros de validação nos campos do form
+                var fieldErrors = creditCard.fieldErrors();
+
+                //Verifica se há erros
+                var hasErrors = false;
+                for(var field in fieldErrors) { hasErrors = true; break; }
+
+                if(hasErrors) {
+                    // realiza o tratamento de errors
+                    console.log(fieldErrors);
+                } else {
+                    // se não há erros, gera o card_hash...
+                    creditCard.generateHash(function(cardHash) {
+                        // ...coloca-o no form...
+                        form.append($('<input type="hidden" name="card_hash">').val(cardHash));
+                        // e envia o form
+                        // form.get(0).submit();
+                        console.log(cardHash);
+
+                        $.ajax({
+                            method: 'POST',
+                            url: '/compra',
+                            data: {cardHash: cardHash},
+                            success: function(res) {
+                                console.log(res);
+                            }
+                        })
+                    });
+                }
+
+                return false;
+            });
+        });
     </script>
 {% endblock %}

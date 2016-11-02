@@ -42,6 +42,8 @@
 
     </style>
     <link rel="stylesheet" href="/public/css/main.css">
+    <script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="/semantic/out/semantic.min.js"></script>
 </head>
 <body>
 
@@ -86,29 +88,25 @@
             </div>
         </footer>
     {% endif %}
-
-
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-
-    <script type="text/javascript" src="/semantic/out/semantic.min.js"></script>
+    <script src="https://assets.pagar.me/js/pagarme.min.js"></script>
     <script type="text/javascript">
 
-        $(function() {
-            var pageUrl = window.location.href;
-            var menus = "#mainNav ul li a, #contextNav ul li a";
+        // $(function() {
+        //     var pageUrl = window.location.href;
+        //     var menus = "#mainNav ul li a, #contextNav ul li a";
 
-            $(".menu .item").each(function(){
-                var urlActive = $(this).data("active");
-                if(pageUrl.indexOf(urlActive) >= 0) {
-                    $(this).addClass("active");
-                }
-            });
+        //     $(".menu .item").each(function(){
+        //         var urlActive = $(this).data("active");
+        //         if(pageUrl.indexOf(urlActive) >= 0) {
+        //             $(this).addClass("active");
+        //         }
+        //     });
 
 
-            $('.ui.dropdown').dropdown({
-                transition: 'drop'
-            });
-        });
+        //     $('.ui.dropdown').dropdown({
+        //         transition: 'drop'
+        //     });
+        // });
 
     </script>
     {% block javascript %}
