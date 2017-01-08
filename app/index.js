@@ -16,8 +16,10 @@ const MONGODB_DATABASE = process.env.MONGODB_DATABASE;
 const MONGODB_USER = process.env.MONGODB_USER;
 const MONGODB_PASSWORD = process.env.MONGODB_PASSWORD;
 
+console.log(process.env);
+
 // Build the connection string
-const dbURI = 'mongodb://'+ MONGODB_USER +':'+ MONGODB_PASSWORD +'@'+ MONGODB_HOST + ':' + MONGODB_PORT + '/' + MONGODB_DATABASE;
+const dbURI = 'mongodb://AdminEstampeiroUser:EsTampeiroSenhaDB123@'+ MONGODB_HOST + ':' + MONGODB_PORT + '/estampeirodb';
 // const dbURI = 'mongodb://localhost:27017/estampeirodb';
 
 // Create the database connection
