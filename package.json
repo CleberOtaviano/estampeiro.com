@@ -29,20 +29,20 @@
     "express": "4.13.4",
     "express-handlebars": "3.0.0",
     "express-session": "1.13.0",
+    "jquery": "^3.1.0",
     "mongoose": "^4.4.19",
     "node-rest-client": "^2.0.1",
     "nunjucks": "latest",
+    "orbit-controls": "^1.1.1",
     "passport": "0.3.2",
     "passport-local": "1.0.0",
     "requestify": "^0.2.3",
     "semantic-ui": "^2.1.8",
     "semantic-ui-transition": "^2.2.3",
-    "orbit-controls": "^1.1.1",
     "three": "^0.78.0",
     "three-obj-loader": "^1.0.2",
     "three-orbit-controls": "^72.0.0",
-    "tween": "^0.9.0",
-    "jquery": "^3.1.0"
+    "tween.js": "^16.3.5"
   },
   "devDependencies": {
     "gulp": "^3.9.1",

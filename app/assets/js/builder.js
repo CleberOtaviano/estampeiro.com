@@ -5,7 +5,7 @@
         $.fn.transition = Transition;
 
         var THREE = require('THREE');
-        var TWEEN = require('TWEEN');
+        var TWEEN = require('tween.js');
         var container, renderElementByDomElement, renderElement, stats;
         var camera, scene, acpect, raycaster, renderer, controls;
 
@@ -62,7 +62,7 @@
             renderElement = $(renderElementByDomElement);
 
             scene = new THREE.Scene();
-            scene.fog = new THREE.Fog( 0x292A2F, 1000, FAR );
+            scene.fog = new THREE.Fog( 0xc6c6c6, 1000, FAR );
 
             var acpect = renderElement.width() / renderElement.height();
 
@@ -218,7 +218,7 @@
             // texturaDahora.offset.y = 0.5;
             //CHÃO
             var geometry = new THREE.PlaneBufferGeometry( 100, 100 );
-            var planeMaterial = new THREE.MeshPhongMaterial( { color: 0x292A2F } );
+            var planeMaterial = new THREE.MeshPhongMaterial( { color: 0xffffff } );
 
             var ground = new THREE.Mesh( geometry, planeMaterial );
 
