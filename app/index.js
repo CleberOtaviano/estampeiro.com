@@ -20,7 +20,7 @@ console.log(process.env);
 
 // Build the connection string
 const dbURI = 'mongodb://AdminEstampeiroUser:EsTampeiroSenhaDB123@'+ MONGODB_HOST + ':' + MONGODB_PORT + '/estampeirodb';
-// const dbURI = 'mongodb://localhost:27017/estampeirodb';
+// const dbURI = 'mongodb://192.168.1.34:27017/estampeirodb';
 
 // Create the database connection
 mongoose.connect(dbURI);
