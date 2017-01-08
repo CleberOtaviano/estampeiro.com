@@ -9,7 +9,7 @@ const cookieParser  = require('cookie-parser')
 const nunjucks  = require('nunjucks')
 
 const mongoose = require('mongoose');
-
+console.log(process.env);
 const MONGODB_HOST = process.env.MONGODB_SERVICE_HOST;
 const MONGODB_PORT = process.env.MONGODB_SERVICE_PORT;
 const MONGODB_DATABASE = process.env.MONGODB_DATABASE;
