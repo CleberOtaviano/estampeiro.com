@@ -14,12 +14,9 @@ lib-cov
 # Coverage directory used by tools like istanbul
 coverage
 
-<<<<<<< HEAD
-=======
 # nyc test coverage
 .nyc_output
 
->>>>>>> 21720ea4fb96a01d78672ab0c8c5ebecdc972509
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
 
@@ -29,31 +26,15 @@ coverage
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
 
-<<<<<<< HEAD
-# Dependency directory
-node_modules
-=======
 # Dependency directories
 node_modules
 jspm_packages
->>>>>>> 21720ea4fb96a01d78672ab0c8c5ebecdc972509
 
 # Optional npm cache directory
 .npm
 
 # Optional REPL history
 .node_repl_history
-<<<<<<< HEAD
 
 # Semantic UI directory
-semantic/out/*
-semantic/gulpfile.js
-semantic/src/definitions
-semantic/src/semantic.less
-semantic/src/theme.less
-semantic/src/themes
-semantic/tasks
-!semantic/out/semantic.min.css
-!semantic/out/semantic.min.js
-=======
->>>>>>> 21720ea4fb96a01d78672ab0c8c5ebecdc972509
+semantic
