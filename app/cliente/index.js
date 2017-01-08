@@ -1,4 +1,4 @@
 module.exports = {
   init: require('./init'),
-  model: require('./model')
+  model: require('./clienteModel')
 }

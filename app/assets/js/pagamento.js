@@ -13,18 +13,106 @@ var pagamento = (function() {
         $('#proximo').on('click', function(e) {
             var prossimoPasso = getPassoAtual() + 1;
 
-            $('[data-step]').transition('hide');
-            $('[data-step=' + prossimoPasso + ']').transition('fade up');
 
-            setProximoPasso();
+            if ( getPassoAtual() === 1 ) {
+                // alert($('#user_name').val());
+                var formSerialized = $('#cadastro_form').serializeObject();
+                formSerialized.isAjax = true;
 
-            if (getPassoAtual() === 3) {
-                $('#proximo').transition('hide');
-                $('#finalizar').transition('fade up');
+                $(this)
+                    .api({
+                        action: 'create user',
+                        method : 'POST',
+                        on: 'now',
+                        data: formSerialized,
+                        // beforeSend: function(settings) {
+                        //     // cancel request
+                        //     if(!formSerialized.user.name || !formSerialized.user.email || !formSerialized.user.password) {
+                        //         $(this).state('flash text', 'FALTA INFORMAÇÃO AI RAPÁ!');
+                        //         return false;
+                        //     }
+                        // },
+                        onSuccess: function(response) {
+                            if (response.success) {
+                                $('[data-step]').transition('hide');
+                                $('[data-step=' + prossimoPasso + ']').transition('fade up');
+
+                                setProximoPasso();
+                            }
+                        },
+                        onComplete: function(response) {
+                            if(!response.success) {
+
+                                console.log(response);
+                            }
+                        }
+                    });
             }
+
+            if ( getPassoAtual() === 2 ) {
+
+            }
+
+            // $('[data-step]').transition('hide');
+            // $('[data-step=' + prossimoPasso + ']').transition('fade up');
+
+            // setProximoPasso();
+
+            // if (getPassoAtual() === 3) {
+            //     $('#proximo').transition('hide');
+            //     $('#finalizar').transition('fade up');
+            // }
 
         });
     };
+
+    var onBlurBuscaCEP = function() {
+        // $('#endereco_cep')
+        //     .search({
+        //         minCharacters : 3,
+        //         apiSettings   : {
+        //             url        : 'viacep.com.br/ws/{cep}/json',
+        //             onResponse : function(theresponse) {
+        //                 // here you modify theresponse object,
+        //                 // then you return the modified version.
+        //                 return theresponse
+        //             }
+        //         }
+        //     });
+
+            $('.ui.search')
+                .search({
+                    debug: true,
+                    apiSettings: {
+                        url: 'https://viacep.com.br/ws/{query}/json',
+                        onResponse: function(cepResponse) {
+                            var response = {
+                                results: []
+                            };
+                            var temp = [];
+                            temp[0] = cepResponse;
+
+                            $.each(temp, function(index, item) {
+
+                                response.results.push({
+                                    title       : item.logradouro || item.localidade,
+                                    description : item.uf
+                                });
+
+                            });
+
+                            console.log(response);
+
+                            return response;
+                        }
+                    },
+                    // fields: {
+                    //     results : 'items',
+                    //     title   : 'localidade'
+                    // },
+                    minCharacters : 8
+                });
+    }
 
     var getPassoAtual = function() {
         var passoAtual = $('[data-current-step]').data('current-step');
@@ -90,6 +178,7 @@ var pagamento = (function() {
         onClickBotaoVoltar();
         onClickProximo();
         onClickVerSenha();
+        onBlurBuscaCEP();
 
         stepControlador();
 

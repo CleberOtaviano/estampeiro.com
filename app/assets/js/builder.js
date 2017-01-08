@@ -62,7 +62,7 @@
             renderElement = $(renderElementByDomElement);
 
             scene = new THREE.Scene();
-            scene.fog = new THREE.Fog( 0xd6d6d6, 1000, FAR );
+            scene.fog = new THREE.Fog( 0x292A2F, 1000, FAR );
 
             var acpect = renderElement.width() / renderElement.height();
 
@@ -201,7 +201,7 @@
 
             var textureLoader = new THREE.TextureLoader();
 
-            var texturaDahora = textureLoader.load("public/3d-model/textures/UV_Grid_Sm.jpg");
+            var texturaDahora = textureLoader.load("public/3d-model/textures/grid.jpg");
 
             // texturaDahora.wrapS = THREE.RepeatWrapping;
             // texturaDahora.wrapT = THREE.RepeatWrapping;
@@ -218,7 +218,7 @@
             // texturaDahora.offset.y = 0.5;
             //CHÃO
             var geometry = new THREE.PlaneBufferGeometry( 100, 100 );
-            var planeMaterial = new THREE.MeshPhongMaterial( { color: 0xffffff } );
+            var planeMaterial = new THREE.MeshPhongMaterial( { color: 0x292A2F } );
 
             var ground = new THREE.Mesh( geometry, planeMaterial );
 

@@ -7,7 +7,7 @@
 
         <div class="controles-build information-build">
             <div>
-                <h2>R$ <strong class="ui huge header">19,90</strong></h2>
+                <h2 class="ui inverted">R$ <strong class="ui huge header inverted">19,90</strong></h2>
             </div>
             <div class="descricao" style="margin-top: 10px;">
                 <p>Lorem ipsum collor dolor its amet bla jujuba alinhada</p>
@@ -102,7 +102,7 @@
                                             <div class="sixteen wide field">
                                                 <label>Nome</label>
                                                 <div class="ui input">
-                                                    <input type="text" id="user_name" name="user[name]" placeholder="Nome completo" value="NOME TESTE">
+                                                    <input type="text" id="user_name" name="name" placeholder="Nome completo" value="NOME TESTE">
                                                 </div>
                                             </div>
                                         </div>
@@ -111,7 +111,7 @@
                                             <div class="sixteen wide field">
                                                 <label>E-mail</label>
                                                 <div class="ui input">
-                                                    <input type="text" id="user_email" name="user[name]" placeholder="Digite seu e-mail" value="a@a.com">
+                                                    <input type="text" id="user_email" name="email" placeholder="Digite seu e-mail" value="a@a.com">
                                                 </div>
                                             </div>
                                         </div>
@@ -120,7 +120,7 @@
                                             <div class="sixteen wide field">
                                                 <label>Senha</label>
                                                 <div class="ui icon input">
-                                                    <input type="password" id="user_password" name="user[password]" placeholder="Mínimo 6 caracteres" value="senha1">
+                                                    <input type="password" id="user_password" name="password" placeholder="Mínimo 6 caracteres" value="senha1">
                                                     <i class="link unhide icon ver-senha"></i>
                                                 </div>
                                             </div>
@@ -168,9 +168,16 @@
                                         <h4 class="ui dividing header">Local de Entrega</h4>
                                         <div class="fields">
                                             <div class="sixteen wide field">
-                                                <label>CEP</label>
+                                                <!--<label>CEP</label>
                                                 <div class="ui input">
                                                     <input type="text" id="endereco_cep" name="endereco[cep]" placeholder="00000-000">
+                                                </div>-->
+
+                                                <div class="ui search">
+                                                    <div class="ui left icon input">
+                                                        <input class="prompt" type="text" placeholder="Digite o CEP para entrega">
+                                                        <i class="shipping icon"></i>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

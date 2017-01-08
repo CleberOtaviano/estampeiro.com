@@ -26,7 +26,7 @@ function initHome(app) {
     res.render('builder/index', {
         isLogado,
         notLayoutMenu: true,
-        invertedMenu: true,
+        invertedMenu: false,
         noFooter: true,
         cores: packColors
     })

@@ -1,4 +1,5 @@
-const passport = require('passport')
+const passport = require('passport');
+const User = require('./clienteModel');
 
 function initCliente (app) {
     // URL Profile
@@ -10,10 +11,56 @@ function initCliente (app) {
 
     // process the signup form
     app.post('/cadastro', passport.authenticate('local-signup', {
-        successRedirect : '/profile', // redirect to the secure profile section
-        failureRedirect : '/signup', // redirect back to the signup page if there is an error
+        successRedirect : '/perfil', // redirect to the secure profile section
+        failureRedirect : '/cadastro', // redirect back to the signup page if there is an error
         failureFlash : true // allow flash messages
     }));
+
+    app.post('/cadastrar', function(req, res, next) {
+        var email = req.body.email;
+        var password = req.body.password;
+        var name = req.body.name;
+
+        var resposta = {
+            "success": true,
+            "message": "Cadastrado com Sucesso",
+            "data": {
+                // payload here
+            }
+        };
+
+        User.findOne({ 'local.email' :  email }, function(err, user) {
+                // if there are any errors, return the error
+            if (err)
+                return err;
+
+            // check to see if theres already a user with that email
+            if (user) {
+               resposta.success = false;
+               resposta.message = 'o e-mail: "' + email + '" ja está sendo utilizado';
+
+               return res.json(resposta);
+            } else {
+
+                // if there is no user with that email
+                // create the user
+                var newUser = new User();
+
+                // set the user's local credentials
+                newUser.local.email    = email;
+                newUser.local.password = newUser.generateHash(password);
+                newUser.local.name = name;
+
+                // save the user
+                newUser.save(function(err) {
+                    if (err)
+                        throw err;
+                    return res.json(resposta);
+                });
+            }
+
+        });
+    });
 
     app.get('/login', function(req, res) {
         // console.log(req.query);

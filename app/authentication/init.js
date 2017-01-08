@@ -1,7 +1,7 @@
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 
-const User = require('../cliente/model')
+const User = require('../cliente/clienteModel')
 
 const authenticationMiddleware = require('./middleware')
 
@@ -26,7 +26,8 @@ function initPassport () {
         passReqToCallback : true // allows us to pass back the entire request to the callback
     },
     function(req, email, password, done) {
-        var name = req.body.name;
+        var name = req.body.name,
+            viaAjax = req.body.isAjax;
 
         // asynchronous
         // User.findOne wont fire unless data is sent back
@@ -41,7 +42,13 @@ function initPassport () {
 
                 // check to see if theres already a user with that email
                 if (user) {
-                    return done(null, false, req.flash('signupMessage', 'O e-mail "'+ email + '" já está sendo utilizado.'));
+                    if (viaAjax) {
+                        console.log(viaAjax);
+                        console.log(user);
+                        return done(null, false, user);
+                    } else {
+                        return done(null, false, req.flash('signupMessage', 'O e-mail "'+ email + '" já está sendo utilizado.'));
+                    }
                 } else {
 
                     // if there is no user with that email
